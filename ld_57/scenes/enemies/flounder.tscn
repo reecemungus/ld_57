@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://6qsxsfmdmrm1"]
+
+[ext_resource type="Script" uid="uid://bwjytj0cjqm3e" path="res://scripts/enemies/enemy_Base_Script.gd" id="1_ukfax"]
+[ext_resource type="Script" uid="uid://cdsckbv8r882g" path="res://scripts/enemies/states/follow_Player.gd" id="2_y0sy5"]
+[ext_resource type="Texture2D" uid="uid://kyojcslv5w8b" path="res://assets/enemies/floudner.png" id="3_863g8"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h3xc6"]
+radius = 16.0
+
+[node name="enemy" type="CharacterBody2D" node_paths=PackedStringArray("default_State")]
+collision_layer = 3
+motion_mode = 1
+platform_on_leave = 2
+platform_floor_layers = 4294967040
+script = ExtResource("1_ukfax")
+default_State = NodePath("follow_Player")
+
+[node name="follow_Player" type="Node2D" parent="."]
+script = ExtResource("2_y0sy5")
+speed = 100.0
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_h3xc6")
+
+[node name="sprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_863g8")
