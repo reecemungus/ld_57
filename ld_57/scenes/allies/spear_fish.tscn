@@ -1,0 +1,74 @@
+[gd_scene load_steps=11 format=3 uid="uid://dy2oaee5fja0s"]
+
+[ext_resource type="Script" uid="uid://cq45wku0nbaks" path="res://scripts/animation/tail_System.gd" id="1_1u2ag"]
+[ext_resource type="Script" uid="uid://d1k6pnbog0545" path="res://scripts/allies/ally_Script.gd" id="2_i8pjn"]
+[ext_resource type="Script" uid="uid://c284rv7ixfkss" path="res://scripts/allies/join_Formation_Script.gd" id="3_i8pjn"]
+[ext_resource type="Texture2D" uid="uid://bma1kls1s8dr1" path="res://assets/allies/spear_Fish.png" id="3_j88ou"]
+[ext_resource type="Script" uid="uid://cfcv4nhj30pdn" path="res://scripts/allies/attack_Script.gd" id="4_j88ou"]
+[ext_resource type="Texture2D" uid="uid://csqu4mns4q6dj" path="res://assets/player/eye.png" id="4_tpjk3"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_j88ou"]
+radius = 16.0
+
+[sub_resource type="Curve" id="Curve_fm80t"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_gx1jg"]
+offsets = PackedFloat32Array(0.25, 1)
+colors = PackedColorArray(0.564706, 0.454902, 0.65098, 1, 0.3915, 0.315, 0.45, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 4
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_je7p5"]
+radius = 8.0
+
+[node name="spear_Fish" type="Node2D"]
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+
+[node name="collision" type="CollisionShape2D" parent="hurtbox"]
+shape = SubResource("CircleShape2D_j88ou")
+
+[node name="body" type="Line2D" parent="." node_paths=PackedStringArray("parent")]
+z_index = -1
+points = PackedVector2Array(0, 0, -8, 0, -16, 0, -24, 0, -32, 0, -40, 0, -48, 0, -56, 0, -64, 0)
+width_curve = SubResource("Curve_fm80t")
+gradient = SubResource("Gradient_gx1jg")
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("1_1u2ag")
+parent = NodePath("../character")
+
+[node name="character" type="CharacterBody2D" parent="." node_paths=PackedStringArray("default_State")]
+collision_mask = 0
+script = ExtResource("2_i8pjn")
+default_State = NodePath("join_Formation")
+metadata/_custom_type_script = "uid://cbqaec1du120m"
+
+[node name="join_Formation" type="Node2D" parent="character"]
+script = ExtResource("3_i8pjn")
+max_Distance_From_Player = 256.0
+speed = 400.0
+metadata/_custom_type_script = "uid://b27o3mlebmn47"
+
+[node name="attack" type="Node2D" parent="character"]
+script = ExtResource("4_j88ou")
+speed = 600.0
+
+[node name="collision" type="CollisionShape2D" parent="character"]
+shape = SubResource("CircleShape2D_je7p5")
+
+[node name="head" type="Sprite2D" parent="character"]
+texture = ExtResource("3_j88ou")
+
+[node name="eye_R" type="Sprite2D" parent="character/head"]
+position = Vector2(4, -6)
+texture = ExtResource("4_tpjk3")
+
+[node name="eye_R2" type="Sprite2D" parent="character/head"]
+position = Vector2(4, 6)
+texture = ExtResource("4_tpjk3")

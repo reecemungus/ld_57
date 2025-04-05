@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=3 uid="uid://toahgy2b06gv"]
+[gd_scene load_steps=6 format=3 uid="uid://toahgy2b06gv"]
 
 [ext_resource type="PackedScene" uid="uid://b8vaqgsfq1f0a" path="res://scenes/player/player.tscn" id="2_nd71p"]
 [ext_resource type="PackedScene" uid="uid://6qsxsfmdmrm1" path="res://scenes/enemies/flounder.tscn" id="3_7ddre"]
 [ext_resource type="Script" uid="uid://cvsm4hwdtkdux" path="res://scripts/enemies/enemy_Spawner_Script.gd" id="3_qjeyg"]
+[ext_resource type="PackedScene" uid="uid://dy2oaee5fja0s" path="res://scenes/allies/spear_fish.tscn" id="4_7ddre"]
 
 [sub_resource type="Curve2D" id="Curve2D_3qnke"]
 _data = {
@@ -42,3 +43,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.0980392, 0.164706, 0.25098, 1)
+
+[node name="spear_Fish" parent="." instance=ExtResource("4_7ddre")]
+position = Vector2(-120, -60)

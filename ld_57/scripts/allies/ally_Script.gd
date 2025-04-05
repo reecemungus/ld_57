@@ -1,0 +1,2 @@
+extends non_Player_Character
+class_name ally

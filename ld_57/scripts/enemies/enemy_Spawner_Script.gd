@@ -1,7 +1,7 @@
 extends Path2D
 
 @export var enemies : Array[PackedScene] = []
-var enemy_Insts : Array[enemy_Base] = []
+var enemy_Insts : Array[non_Player_Character] = []
 
 @onready var follower : PathFollow2D = get_node("follower")
 

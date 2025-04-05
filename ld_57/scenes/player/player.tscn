@@ -1,31 +1,133 @@
-[gd_scene load_steps=13 format=3 uid="uid://b8vaqgsfq1f0a"]
+[gd_scene load_steps=14 format=3 uid="uid://b8vaqgsfq1f0a"]
 
 [ext_resource type="Script" uid="uid://bux8jxwcb23m1" path="res://scripts/player/player_Script.gd" id="1_lvxji"]
-[ext_resource type="Script" uid="uid://ctn2mfeuj3aph" path="res://scripts/player/inventory_Script.gd" id="2_75vfm"]
-[ext_resource type="Texture2D" uid="uid://c73ugfqpia0ki" path="res://assets/player/player.png" id="2_p47bc"]
-[ext_resource type="Script" uid="uid://il7u8xf6fvv4" path="res://scripts/weapons/gun_Base.gd" id="3_p47bc"]
-[ext_resource type="Texture2D" uid="uid://bbkg1gqymlmxh" path="res://assets/weapons/pistol.png" id="4_0owmy"]
-[ext_resource type="PackedScene" uid="uid://o3mkv6hkoj1l" path="res://scenes/weapons/bullets/bullet.tscn" id="4_75vfm"]
-[ext_resource type="Texture2D" uid="uid://cxd8e0udq7fou" path="res://assets/weapons/pistol_Icon.png" id="5_5gtgg"]
-[ext_resource type="Texture2D" uid="uid://dwqsqfa8ecwbs" path="res://assets/weapons/shotgun.png" id="7_0owmy"]
-[ext_resource type="Texture2D" uid="uid://bgpsxyfeag7cq" path="res://icon.svg" id="7_h17s1"]
+[ext_resource type="Texture2D" uid="uid://3lrxpilfytl3" path="res://assets/player/body.png" id="1_p47bc"]
+[ext_resource type="Script" uid="uid://cq45wku0nbaks" path="res://scripts/animation/tail_System.gd" id="3_gmlin"]
+[ext_resource type="Texture2D" uid="uid://b0t4ubtpx6uf2" path="res://assets/player/whisker.png" id="3_p47bc"]
+[ext_resource type="Texture2D" uid="uid://bsrmnykpowk54" path="res://assets/player/player_Head.png" id="5_0owmy"]
+[ext_resource type="Texture2D" uid="uid://dfk71tdgu3ocf" path="res://assets/player/fin.png" id="6_75vfm"]
+[ext_resource type="Texture2D" uid="uid://csqu4mns4q6dj" path="res://assets/player/eye.png" id="7_qek5x"]
+[ext_resource type="Script" uid="uid://ch0w8p135qpag" path="res://scripts/animation/face_Move_Dir.gd" id="8_qek5x"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_5gtgg"]
-radius = 256.0
+[sub_resource type="Curve" id="Curve_dovo2"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_p47bc"]
+offsets = PackedFloat32Array(0.25, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.75, 0.75, 0.75, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 4
+
+[sub_resource type="Gradient" id="Gradient_75vfm"]
+offsets = PackedFloat32Array(0.25, 1)
+colors = PackedColorArray(1, 1, 1, 1, 0.75, 0.75, 0.75, 1)
+metadata/_snap_enabled = true
+metadata/_snap_count = 4
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h17s1"]
-radius = 128.0
+radius = 256.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ddre"]
 radius = 8.0
 
-[node name="player" type="CharacterBody2D" node_paths=PackedStringArray("current_Weapon") groups=["player"]]
-collision_mask = 10
+[node name="player_Root" type="Node2D"]
+
+[node name="player_Body" type="Line2D" parent="." node_paths=PackedStringArray("parent")]
+z_index = -1
+points = PackedVector2Array(0, 0, -16, 0, -32, 0, -48, 0, -64, 0, -80, 0, -96, 0, -112, 0, -128, 0, -144, 0, -160, 0, -176, 0, -192, 0, -208, 0, -224, 0, -240, 0, -256, 0)
+width = 44.0
+width_curve = SubResource("Curve_dovo2")
+gradient = SubResource("Gradient_p47bc")
+texture = ExtResource("1_p47bc")
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("3_gmlin")
+parent = NodePath("../player")
+
+[node name="whisker_R" type="Line2D" parent="." node_paths=PackedStringArray("parent")]
+z_index = -1
+position = Vector2(0, 64)
+points = PackedVector2Array(0, 0, -16, 0, -32, 0, -48, 0, -64, 0, -80, 0, -96, 0, -112, 0, -128, 0)
+width = 4.0
+width_curve = SubResource("Curve_dovo2")
+gradient = SubResource("Gradient_75vfm")
+texture = ExtResource("3_p47bc")
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("3_gmlin")
+parent = NodePath("../player/head/fin_R/fin_Attach_Point")
+
+[node name="whisker_L" type="Line2D" parent="." node_paths=PackedStringArray("parent")]
+z_index = -1
+position = Vector2(0, -64)
+points = PackedVector2Array(0, 0, -16, 0, -32, 0, -48, 0, -64, 0, -80, 0, -96, 0, -112, 0, -128, 0)
+width = 4.0
+width_curve = SubResource("Curve_dovo2")
+gradient = SubResource("Gradient_75vfm")
+texture = ExtResource("3_p47bc")
+texture_mode = 1
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("3_gmlin")
+parent = NodePath("../player/head/fin_L/fin_Attach_Point")
+
+[node name="player" type="CharacterBody2D" parent="." groups=["player"]]
+collision_mask = 8
 motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4294967040
 script = ExtResource("1_lvxji")
-current_Weapon = NodePath("inventory/shotgun")
+input_Multiplier = 100.0
+rotation_Speed = 2.0
+
+[node name="camera" type="Camera2D" parent="player"]
+process_callback = 0
+position_smoothing_enabled = true
+position_smoothing_speed = 2.0
+
+[node name="player_Perception" type="Area2D" parent="player" groups=["player_Perception"]]
+collision_layer = 0
+collision_mask = 2
+
+[node name="collision" type="CollisionShape2D" parent="player/player_Perception"]
+shape = SubResource("CircleShape2D_h17s1")
+
+[node name="collision" type="CollisionShape2D" parent="player"]
+shape = SubResource("CircleShape2D_7ddre")
+
+[node name="head" type="Sprite2D" parent="player"]
+texture = ExtResource("5_0owmy")
+
+[node name="fin_R" type="Sprite2D" parent="player/head"]
+position = Vector2(0, 16)
+rotation = 3.14159
+texture = ExtResource("6_75vfm")
+
+[node name="fin_Attach_Point" type="Node2D" parent="player/head/fin_R"]
+position = Vector2(-4.19629e-06, -48)
+
+[node name="fin_L" type="Sprite2D" parent="player/head"]
+position = Vector2(0, -16)
+texture = ExtResource("6_75vfm")
+
+[node name="fin_Attach_Point" type="Node2D" parent="player/head/fin_L"]
+position = Vector2(-4.19629e-06, -48)
+
+[node name="eye_L" type="Sprite2D" parent="player/head"]
+position = Vector2(20, -12)
+texture = ExtResource("7_qek5x")
+script = ExtResource("8_qek5x")
+
+[node name="eye_R" type="Sprite2D" parent="player/head"]
+position = Vector2(20, 12)
+texture = ExtResource("7_qek5x")
+script = ExtResource("8_qek5x")
 
 [node name="player_UI" type="CanvasLayer" parent="."]
 
@@ -36,62 +138,3 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="inventory" type="Node2D" parent="."]
-script = ExtResource("2_75vfm")
-
-[node name="pistol" type="Node2D" parent="inventory"]
-script = ExtResource("3_p47bc")
-bullet_Scene = ExtResource("4_75vfm")
-icon = ExtResource("5_5gtgg")
-damage = 8.0
-delay = 0.25
-max_Offset = 0.05
-
-[node name="range_Area" type="Area2D" parent="inventory/pistol"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="inventory/pistol/range_Area"]
-shape = SubResource("CircleShape2D_5gtgg")
-
-[node name="sprite" type="Sprite2D" parent="inventory/pistol"]
-position = Vector2(32, 0)
-texture = ExtResource("4_0owmy")
-
-[node name="barrel" type="Node2D" parent="inventory/pistol/sprite"]
-position = Vector2(4, 0)
-
-[node name="shotgun" type="Node2D" parent="inventory"]
-script = ExtResource("3_p47bc")
-bullet_Scene = ExtResource("4_75vfm")
-bullet_Count = 16
-bullet_Speed_Variation = 64.0
-icon = ExtResource("7_h17s1")
-damage = 4.0
-delay = 1.0
-max_Offset = 0.25
-
-[node name="sprite" type="Sprite2D" parent="inventory/shotgun"]
-position = Vector2(16, 0)
-texture = ExtResource("7_0owmy")
-
-[node name="barrel" type="Node2D" parent="inventory/shotgun/sprite"]
-position = Vector2(4, 0)
-
-[node name="range_Area" type="Area2D" parent="inventory/shotgun"]
-collision_layer = 0
-collision_mask = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="inventory/shotgun/range_Area"]
-shape = SubResource("CircleShape2D_h17s1")
-
-[node name="camera" type="Camera2D" parent="."]
-position_smoothing_enabled = true
-position_smoothing_speed = 2.5
-
-[node name="collision" type="CollisionShape2D" parent="."]
-shape = SubResource("CircleShape2D_7ddre")
-
-[node name="sprite" type="Sprite2D" parent="."]
-texture = ExtResource("2_p47bc")
