@@ -86,6 +86,13 @@ attack={
 ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="player"
+2d_physics/layer_2="enemies"
+2d_physics/layer_3="player_Bullets"
+2d_physics/layer_4="enemy_Bullets"
+
 [physics]
 
 common/physics_jitter_fix=0.0

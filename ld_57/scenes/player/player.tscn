@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://b8vaqgsfq1f0a"]
+[gd_scene load_steps=13 format=3 uid="uid://b8vaqgsfq1f0a"]
 
 [ext_resource type="Script" uid="uid://bux8jxwcb23m1" path="res://scripts/player/player_Script.gd" id="1_lvxji"]
 [ext_resource type="Script" uid="uid://ctn2mfeuj3aph" path="res://scripts/player/inventory_Script.gd" id="2_75vfm"]
@@ -10,15 +10,32 @@
 [ext_resource type="Texture2D" uid="uid://dwqsqfa8ecwbs" path="res://assets/weapons/shotgun.png" id="7_0owmy"]
 [ext_resource type="Texture2D" uid="uid://bgpsxyfeag7cq" path="res://icon.svg" id="7_h17s1"]
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_5gtgg"]
+radius = 256.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_h17s1"]
+radius = 128.0
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ddre"]
 radius = 8.0
 
 [node name="player" type="CharacterBody2D" node_paths=PackedStringArray("current_Weapon") groups=["player"]]
+collision_mask = 10
 motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4294967040
 script = ExtResource("1_lvxji")
 current_Weapon = NodePath("inventory/shotgun")
+
+[node name="player_UI" type="CanvasLayer" parent="."]
+
+[node name="ui" type="Control" parent="player_UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="inventory" type="Node2D" parent="."]
 script = ExtResource("2_75vfm")
@@ -31,8 +48,19 @@ damage = 8.0
 delay = 0.25
 max_Offset = 0.05
 
+[node name="range_Area" type="Area2D" parent="inventory/pistol"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="inventory/pistol/range_Area"]
+shape = SubResource("CircleShape2D_5gtgg")
+
 [node name="sprite" type="Sprite2D" parent="inventory/pistol"]
+position = Vector2(32, 0)
 texture = ExtResource("4_0owmy")
+
+[node name="barrel" type="Node2D" parent="inventory/pistol/sprite"]
+position = Vector2(4, 0)
 
 [node name="shotgun" type="Node2D" parent="inventory"]
 script = ExtResource("3_p47bc")
@@ -45,10 +73,18 @@ delay = 1.0
 max_Offset = 0.25
 
 [node name="sprite" type="Sprite2D" parent="inventory/shotgun"]
+position = Vector2(16, 0)
 texture = ExtResource("7_0owmy")
 
-[node name="equipped_Slot" type="Node2D" parent="."]
-position = Vector2(14, 0)
+[node name="barrel" type="Node2D" parent="inventory/shotgun/sprite"]
+position = Vector2(4, 0)
+
+[node name="range_Area" type="Area2D" parent="inventory/shotgun"]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="inventory/shotgun/range_Area"]
+shape = SubResource("CircleShape2D_h17s1")
 
 [node name="camera" type="Camera2D" parent="."]
 position_smoothing_enabled = true
