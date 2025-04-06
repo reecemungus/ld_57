@@ -15,6 +15,10 @@ run/main_scene="uid://dxsi0iv3wqhb5"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[autoload]
+
+SoundManager="*res://scripts/autoload/sound_manager.gd"
+
 [display]
 
 window/size/viewport_width=960
@@ -27,14 +31,17 @@ folder_colors={
 "res://assets/": "orange",
 "res://scenes/": "blue",
 "res://script_templates/": "gray",
-"res://scripts/": "purple"
+"res://scripts/": "purple",
+"res://scripts/shaders/": "pink"
 }
 
 [global_group]
 
 player=""
 player_Perception=""
-enemy_Inst=""
+egg=""
+player_Team=""
+enemy=""
 
 [input]
 
@@ -94,6 +101,7 @@ attack={
 2d_physics/layer_2="enemies"
 2d_physics/layer_3="player_Bullets"
 2d_physics/layer_4="enemy_Bullets"
+2d_physics/layer_5="eggs"
 
 [physics]
 

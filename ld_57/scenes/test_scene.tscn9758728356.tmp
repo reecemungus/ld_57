@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://toahgy2b06gv"]
 
-[ext_resource type="Script" uid="uid://dddescaew06yw" path="res://scenes/game_Scene_Script.gd" id="1_7ddre"]
 [ext_resource type="PackedScene" uid="uid://b8vaqgsfq1f0a" path="res://scenes/player/player.tscn" id="2_nd71p"]
 [ext_resource type="Script" uid="uid://batgvlc0d7p1e" path="res://scripts/game_Manager_Script.gd" id="3_nd71p"]
+[ext_resource type="PackedScene" uid="uid://dy2oaee5fja0s" path="res://scenes/allies/spear_fish.tscn" id="4_7ddre"]
 
 [sub_resource type="Curve" id="Curve_nd71p"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.5), 0.0, 0.0, 0, 0]
@@ -14,7 +14,6 @@ metadata/_snap_enabled = true
 metadata/_snap_count = 2
 
 [node name="game_Scene" type="Node2D"]
-script = ExtResource("1_7ddre")
 
 [node name="game_UI" type="CanvasLayer" parent="."]
 
@@ -28,9 +27,11 @@ grow_vertical = 2
 
 [node name="player" parent="." instance=ExtResource("2_nd71p")]
 
+[node name="spear_Fish" parent="." instance=ExtResource("4_7ddre")]
+position = Vector2(-120, -60)
+
 [node name="game_Manager" type="Node2D" parent="."]
 script = ExtResource("3_nd71p")
-max_Enemies = 32
 
 [node name="objective_Marker" type="Line2D" parent="game_Manager"]
 z_index = -2

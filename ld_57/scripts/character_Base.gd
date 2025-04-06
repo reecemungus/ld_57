@@ -22,4 +22,5 @@ func take_Damage(damage : float) -> void:
 	health -= damage
 
 func on_Death() -> void:
+	SoundManager.playSound(preload("res://assets/audio/death.wav"))
 	get_node("..").queue_free()

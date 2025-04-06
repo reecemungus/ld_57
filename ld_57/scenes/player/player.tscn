@@ -88,12 +88,13 @@ end_cap_mode = 2
 script = ExtResource("3_gmlin")
 parent = NodePath("../player/head/fin_L/fin_Attach_Point")
 
-[node name="player" type="CharacterBody2D" parent="." groups=["player"]]
+[node name="player" type="CharacterBody2D" parent="." groups=["player", "player_Team"]]
 collision_mask = 8
 motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4294967040
 script = ExtResource("1_lvxji")
+health_Regen = 10.0
 
 [node name="camera" type="Camera2D" parent="player"]
 process_callback = 0
@@ -102,7 +103,7 @@ position_smoothing_speed = 2.0
 
 [node name="player_Perception" type="Area2D" parent="player" groups=["player_Perception"]]
 collision_layer = 0
-collision_mask = 2
+collision_mask = 18
 
 [node name="collision" type="CollisionShape2D" parent="player/player_Perception"]
 shape = SubResource("CircleShape2D_h17s1")

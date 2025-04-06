@@ -1,10 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dy2oaee5fja0s"]
+[gd_scene load_steps=8 format=3 uid="uid://dy2oaee5fja0s"]
 
 [ext_resource type="Script" uid="uid://cq45wku0nbaks" path="res://scripts/animation/tail_System.gd" id="1_1u2ag"]
 [ext_resource type="Script" uid="uid://d1k6pnbog0545" path="res://scripts/allies/ally_Script.gd" id="2_i8pjn"]
-[ext_resource type="Script" uid="uid://c284rv7ixfkss" path="res://scripts/allies/join_Formation_Script.gd" id="3_i8pjn"]
 [ext_resource type="Texture2D" uid="uid://bma1kls1s8dr1" path="res://assets/allies/spear_Fish.png" id="3_j88ou"]
-[ext_resource type="Script" uid="uid://cfcv4nhj30pdn" path="res://scripts/allies/attack_Script.gd" id="4_j88ou"]
 [ext_resource type="Texture2D" uid="uid://csqu4mns4q6dj" path="res://assets/player/eye.png" id="4_tpjk3"]
 
 [sub_resource type="Curve" id="Curve_fm80t"]
@@ -33,24 +31,13 @@ end_cap_mode = 2
 script = ExtResource("1_1u2ag")
 parent = NodePath("../character")
 
-[node name="character" type="CharacterBody2D" parent="." node_paths=PackedStringArray("default_State")]
+[node name="character" type="CharacterBody2D" parent="." groups=["player_Team"]]
 collision_mask = 0
 script = ExtResource("2_i8pjn")
-default_State = NodePath("join_Formation")
-health = 250.0
-health_Regen = 100.0
+move_Speed = 325.0
+rotation_Speed = 8.0
+health_Regen = 5.0
 metadata/_custom_type_script = "uid://cbqaec1du120m"
-
-[node name="join_Formation" type="Node2D" parent="character"]
-script = ExtResource("3_i8pjn")
-max_Distance_From_Player = 256.0
-speed = 400.0
-metadata/_custom_type_script = "uid://b27o3mlebmn47"
-
-[node name="attack" type="Node2D" parent="character"]
-script = ExtResource("4_j88ou")
-collision_Damage = 64.0
-speed = 600.0
 
 [node name="collision" type="CollisionShape2D" parent="character"]
 shape = SubResource("CircleShape2D_je7p5")

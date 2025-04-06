@@ -1,9 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://6qsxsfmdmrm1"]
+[gd_scene load_steps=5 format=3 uid="uid://6qsxsfmdmrm1"]
 
-[ext_resource type="Script" uid="uid://bwjytj0cjqm3e" path="res://scripts/enemies/enemy_Base_Script.gd" id="1_ukfax"]
-[ext_resource type="Script" uid="uid://cdsckbv8r882g" path="res://scripts/enemies/states/attack_Player.gd" id="2_y0sy5"]
 [ext_resource type="Texture2D" uid="uid://kyojcslv5w8b" path="res://assets/enemies/floudner.png" id="3_863g8"]
-[ext_resource type="Script" uid="uid://cvwk3b7sjupa7" path="res://scripts/enemies/states/follow_Player.gd" id="4_863g8"]
 [ext_resource type="Script" uid="uid://cq45wku0nbaks" path="res://scripts/animation/tail_System.gd" id="4_y0sy5"]
 
 [sub_resource type="Curve" id="Curve_rixqc"]
@@ -27,26 +24,12 @@ end_cap_mode = 2
 script = ExtResource("4_y0sy5")
 parent = NodePath("../enemy")
 
-[node name="enemy" type="CharacterBody2D" parent="." node_paths=PackedStringArray("default_State")]
+[node name="enemy" type="CharacterBody2D" parent="."]
 collision_layer = 2
 collision_mask = 6
 motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4294967040
-script = ExtResource("1_ukfax")
-default_State = NodePath("attack_Player")
-health = 16.0
-
-[node name="attack_Player" type="Node2D" parent="enemy"]
-script = ExtResource("2_y0sy5")
-collision_Damage = null
-max_Distance_From_Player = 999999.0
-speed = 100.0
-
-[node name="follow_Player" type="Node2D" parent="enemy"]
-script = ExtResource("4_863g8")
-max_Radius_From_Player = 64.0
-speed = 600.0
 
 [node name="collision" type="CollisionShape2D" parent="enemy"]
 shape = SubResource("CircleShape2D_h3xc6")

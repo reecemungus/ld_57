@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://d22g16ofh5gbg"]
+
+[ext_resource type="Texture2D" uid="uid://kyojcslv5w8b" path="res://assets/enemies/floudner.png" id="1_6xk8f"]
+[ext_resource type="Script" uid="uid://cq45wku0nbaks" path="res://scripts/animation/tail_System.gd" id="1_8e3ao"]
+[ext_resource type="Script" uid="uid://c7oh5v1mckvsl" path="res://scripts/objectives/enemy_Script.gd" id="2_38ino"]
+
+[sub_resource type="Curve" id="Curve_38ino"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fcftc"]
+radius = 16.0
+
+[node name="enemy" type="Node2D"]
+
+[node name="tail" type="Line2D" parent="." node_paths=PackedStringArray("parent")]
+points = PackedVector2Array(0, 0, -8, 0, -24, 0, -32, 0, -40, 0, -48, 0, -56, 0, -64, 0, -16, 0)
+width = 16.0
+width_curve = SubResource("Curve_38ino")
+default_color = Color(0.34902, 0.278431, 0.290196, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("1_8e3ao")
+parent = NodePath("../enemy")
+
+[node name="enemy" type="CharacterBody2D" parent="." groups=["enemy"]]
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("2_38ino")
+move_Speed = 250.0
+activate_Health = 0.5
+
+[node name="collision" type="CollisionShape2D" parent="enemy"]
+shape = SubResource("CircleShape2D_fcftc")
+
+[node name="sprite" type="Sprite2D" parent="enemy"]
+texture = ExtResource("1_6xk8f")

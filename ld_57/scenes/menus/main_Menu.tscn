@@ -1,19 +1,39 @@
-[gd_scene load_steps=2 format=3 uid="uid://dxsi0iv3wqhb5"]
+[gd_scene load_steps=10 format=3 uid="uid://dxsi0iv3wqhb5"]
 
 [ext_resource type="Script" uid="uid://bfbc4ct0sk0ct" path="res://scripts/menus/main_Menu_Script.gd" id="1_i2imv"]
+[ext_resource type="FontFile" uid="uid://cutp0x5uvusbw" path="res://assets/font/Dangrek/Dangrek-Regular.ttf" id="2_4swns"]
+[ext_resource type="Texture2D" uid="uid://clp2pg0e6vbvn" path="res://assets/ui/clouds_Bg.png" id="3_6m5rn"]
+[ext_resource type="Shader" uid="uid://bxhmeghtw08cb" path="res://scripts/shaders/scroll.gdshader" id="4_jp02y"]
+[ext_resource type="Texture2D" uid="uid://bpdi4edeh8gkj" path="res://assets/ui/clouds_Mid.png" id="4_ve74v"]
+[ext_resource type="Texture2D" uid="uid://bj0upc6ssmnqu" path="res://assets/ui/clouds_Bot.png" id="5_jp02y"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ve74v"]
+shader = ExtResource("4_jp02y")
+shader_parameter/speed = Vector2(0, 0)
+shader_parameter/wave_Frequency = 5.0
+shader_parameter/wave_Speed = 1.0
+shader_parameter/wave_Amplitude = 10.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mdryk"]
+shader = ExtResource("4_jp02y")
+shader_parameter/speed = Vector2(-0.025, 0)
+shader_parameter/wave_Frequency = 5.0
+shader_parameter/wave_Speed = 1.0
+shader_parameter/wave_Amplitude = 25.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vsrqc"]
+shader = ExtResource("4_jp02y")
+shader_parameter/speed = Vector2(0.025, 0)
+shader_parameter/wave_Frequency = 5.0
+shader_parameter/wave_Speed = -1.0
+shader_parameter/wave_Amplitude = 25.0
 
 [node name="main_Menu" type="Node2D"]
 script = ExtResource("1_i2imv")
 
-[node name="canvas" type="CanvasLayer" parent="."]
+[node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="ColorRect" type="ColorRect" parent="canvas"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.111037, 0.100729, 0.365523, 1)
+[node name="canvas" type="CanvasLayer" parent="."]
 
 [node name="main_Menu" type="Control" parent="canvas"]
 layout_mode = 3
@@ -26,17 +46,17 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="title" type="Label" parent="canvas/main_Menu"]
+material = SubResource("ShaderMaterial_ve74v")
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 160.0
-offset_top = 20.0
-offset_right = -160.0
-offset_bottom = -320.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "Game"
+theme_override_colors/font_color = Color(0.509785, 0.761719, 0.940445, 1)
+theme_override_fonts/font = ExtResource("2_4swns")
+theme_override_font_sizes/font_size = 128
+text = "SEABIOSIS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -44,9 +64,9 @@ vertical_alignment = 1
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.333333
-anchor_top = 0.583333
+anchor_top = 0.791667
 anchor_right = 0.666667
-anchor_bottom = 0.75
+anchor_bottom = 0.958333
 grow_horizontal = 2
 grow_vertical = 2
 metadata/_edit_use_anchors_ = true
@@ -54,6 +74,21 @@ metadata/_edit_use_anchors_ = true
 [node name="start_Game" type="Button" parent="canvas/main_Menu/buttons_Container"]
 layout_mode = 2
 size_flags_vertical = 3
-text = "Start Game"
+theme_override_fonts/font = ExtResource("2_4swns")
+theme_override_font_sizes/font_size = 32
+text = "START GAME"
+
+[node name="bg" type="Node2D" parent="."]
+
+[node name="bg" type="Sprite2D" parent="bg"]
+texture = ExtResource("3_6m5rn")
+
+[node name="mid_Layer" type="Sprite2D" parent="bg"]
+material = SubResource("ShaderMaterial_mdryk")
+texture = ExtResource("4_ve74v")
+
+[node name="bot_Layer" type="Sprite2D" parent="bg"]
+material = SubResource("ShaderMaterial_vsrqc")
+texture = ExtResource("5_jp02y")
 
 [connection signal="pressed" from="canvas/main_Menu/buttons_Container/start_Game" to="." method="_on_start_game_pressed"]
