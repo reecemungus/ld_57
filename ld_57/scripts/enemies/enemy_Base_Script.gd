@@ -5,6 +5,8 @@ class_name non_Player_Character
 var states : Dictionary = {} ## contains all possible states for the enemy
 var current_State : state ## the current state that is controlling the enemy
 
+var target_Position : Vector2 ## target to move toward
+
 func _ready() -> void:
 	for child in get_children():
 		if child is state: ## get all children of the enemy that are states
@@ -20,14 +22,16 @@ func _process(delta: float) -> void:
 	current_State.on_State_Process() ## run state code
 
 func _physics_process(delta: float) -> void:
+	super(delta)
+	
 	if !current_State: ## if there is no active state, back out
 		return
 	
-	current_State.on_State_Physics_Process() ## run state code
+	current_State.on_State_Physics_Process(delta) ## run state code
 	
-	if current_State.direction != Vector2.ZERO:
-		velocity = current_State.direction.normalized() * current_State.speed ## move toward the location that the state suggests
-		look_at(global_position + velocity) ## face move direction
+	if current_State.target_Position:
+		velocity = Vector2.RIGHT * current_State.speed ## move toward the location that the state suggests
+		rotation = rotate_toward(rotation, global_position.angle_to(target_Position), current_State.rotation_Speed) ## face move direction
 	
 	move_and_slide() ## execute movement
 

@@ -1,27 +1,55 @@
-[gd_scene load_steps=5 format=3 uid="uid://6qsxsfmdmrm1"]
+[gd_scene load_steps=8 format=3 uid="uid://6qsxsfmdmrm1"]
 
 [ext_resource type="Script" uid="uid://bwjytj0cjqm3e" path="res://scripts/enemies/enemy_Base_Script.gd" id="1_ukfax"]
-[ext_resource type="Script" uid="uid://cdsckbv8r882g" path="res://scripts/enemies/states/follow_Player.gd" id="2_y0sy5"]
+[ext_resource type="Script" uid="uid://cdsckbv8r882g" path="res://scripts/enemies/states/attack_Player.gd" id="2_y0sy5"]
 [ext_resource type="Texture2D" uid="uid://kyojcslv5w8b" path="res://assets/enemies/floudner.png" id="3_863g8"]
+[ext_resource type="Script" uid="uid://cvwk3b7sjupa7" path="res://scripts/enemies/states/follow_Player.gd" id="4_863g8"]
+[ext_resource type="Script" uid="uid://cq45wku0nbaks" path="res://scripts/animation/tail_System.gd" id="4_y0sy5"]
+
+[sub_resource type="Curve" id="Curve_rixqc"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
+point_count = 2
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_h3xc6"]
 radius = 16.0
 
-[node name="enemy" type="CharacterBody2D" node_paths=PackedStringArray("default_State")]
+[node name="flounder" type="Node2D" groups=["enemy_Inst"]]
+z_index = 1
+
+[node name="tail" type="Line2D" parent="." node_paths=PackedStringArray("parent")]
+points = PackedVector2Array(0, 0, -8, 0, -16, 0, -24, 0, -32, 0, -40, 0, -48, 0, -56, 0, -64, 0)
+width = 16.0
+width_curve = SubResource("Curve_rixqc")
+default_color = Color(0.34902, 0.278431, 0.290196, 1)
+joint_mode = 2
+begin_cap_mode = 2
+end_cap_mode = 2
+script = ExtResource("4_y0sy5")
+parent = NodePath("../enemy")
+
+[node name="enemy" type="CharacterBody2D" parent="." node_paths=PackedStringArray("default_State")]
 collision_layer = 2
-collision_mask = 4
+collision_mask = 6
 motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4294967040
 script = ExtResource("1_ukfax")
-default_State = NodePath("follow_Player")
+default_State = NodePath("attack_Player")
+health = 16.0
 
-[node name="follow_Player" type="Node2D" parent="."]
+[node name="attack_Player" type="Node2D" parent="enemy"]
 script = ExtResource("2_y0sy5")
+collision_Damage = null
+max_Distance_From_Player = 999999.0
 speed = 100.0
 
-[node name="collision" type="CollisionShape2D" parent="."]
+[node name="follow_Player" type="Node2D" parent="enemy"]
+script = ExtResource("4_863g8")
+max_Radius_From_Player = 64.0
+speed = 600.0
+
+[node name="collision" type="CollisionShape2D" parent="enemy"]
 shape = SubResource("CircleShape2D_h3xc6")
 
-[node name="sprite" type="Sprite2D" parent="."]
+[node name="sprite" type="Sprite2D" parent="enemy"]
 texture = ExtResource("3_863g8")

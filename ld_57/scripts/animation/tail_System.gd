@@ -4,7 +4,7 @@ class_name tail
 @export var parent : Node2D
 var offset : Vector2
 
-@export var iterations : int = 8
+@export var iterations : int = 2
 
 func _ready() -> void:
 	super()
@@ -18,7 +18,6 @@ func _physics_process(delta: float) -> void:
 	solve_Pos_Gauss_Seidel()
 	
 	if parent:
-		#var target_Pos := parent.global_position + offset.rotated(parent.global_rotation)
 		var target_Pos := parent.to_global(offset)
 		
 		global_position = target_Pos

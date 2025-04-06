@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b8vaqgsfq1f0a"]
+[gd_scene load_steps=19 format=3 uid="uid://b8vaqgsfq1f0a"]
 
 [ext_resource type="Script" uid="uid://bux8jxwcb23m1" path="res://scripts/player/player_Script.gd" id="1_lvxji"]
 [ext_resource type="Texture2D" uid="uid://3lrxpilfytl3" path="res://assets/player/body.png" id="1_p47bc"]
@@ -7,7 +7,10 @@
 [ext_resource type="Texture2D" uid="uid://bsrmnykpowk54" path="res://assets/player/player_Head.png" id="5_0owmy"]
 [ext_resource type="Texture2D" uid="uid://dfk71tdgu3ocf" path="res://assets/player/fin.png" id="6_75vfm"]
 [ext_resource type="Texture2D" uid="uid://csqu4mns4q6dj" path="res://assets/player/eye.png" id="7_qek5x"]
-[ext_resource type="Script" uid="uid://ch0w8p135qpag" path="res://scripts/animation/face_Move_Dir.gd" id="8_qek5x"]
+[ext_resource type="Texture2D" uid="uid://c7vb0gf4moaw" path="res://assets/particles/bubble.png" id="9_5gtgg"]
+[ext_resource type="Texture2D" uid="uid://cb8nnjh3xkivq" path="res://assets/ui/box_Rect.png" id="10_fm80t"]
+[ext_resource type="Texture2D" uid="uid://drql0640b2w2n" path="res://assets/ui/fill_Rect.png" id="11_gx1jg"]
+[ext_resource type="Script" uid="uid://bpevl3jst2f6x" path="res://scripts/ui/health_Bar_Script.gd" id="12_ugbui"]
 
 [sub_resource type="Curve" id="Curve_dovo2"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.2), 0.0, 0.0, 0, 0]
@@ -31,6 +34,16 @@ radius = 256.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_7ddre"]
 radius = 8.0
 
+[sub_resource type="Curve" id="Curve_h17s1"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(0.5, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="Gradient" id="Gradient_je7p5"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 0)
+metadata/_snap_enabled = true
+metadata/_snap_count = 2
+
 [node name="player_Root" type="Node2D"]
 
 [node name="player_Body" type="Line2D" parent="." node_paths=PackedStringArray("parent")]
@@ -48,7 +61,6 @@ script = ExtResource("3_gmlin")
 parent = NodePath("../player")
 
 [node name="whisker_R" type="Line2D" parent="." node_paths=PackedStringArray("parent")]
-z_index = -1
 position = Vector2(0, 64)
 points = PackedVector2Array(0, 0, -16, 0, -32, 0, -48, 0, -64, 0, -80, 0, -96, 0, -112, 0, -128, 0)
 width = 4.0
@@ -63,7 +75,6 @@ script = ExtResource("3_gmlin")
 parent = NodePath("../player/head/fin_R/fin_Attach_Point")
 
 [node name="whisker_L" type="Line2D" parent="." node_paths=PackedStringArray("parent")]
-z_index = -1
 position = Vector2(0, -64)
 points = PackedVector2Array(0, 0, -16, 0, -32, 0, -48, 0, -64, 0, -80, 0, -96, 0, -112, 0, -128, 0)
 width = 4.0
@@ -83,8 +94,6 @@ motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4294967040
 script = ExtResource("1_lvxji")
-input_Multiplier = 100.0
-rotation_Speed = 2.0
 
 [node name="camera" type="Camera2D" parent="player"]
 process_callback = 0
@@ -120,14 +129,43 @@ texture = ExtResource("6_75vfm")
 position = Vector2(-4.19629e-06, -48)
 
 [node name="eye_L" type="Sprite2D" parent="player/head"]
-position = Vector2(20, -12)
+position = Vector2(16, -64)
+scale = Vector2(2, 2)
 texture = ExtResource("7_qek5x")
-script = ExtResource("8_qek5x")
 
 [node name="eye_R" type="Sprite2D" parent="player/head"]
-position = Vector2(20, 12)
+position = Vector2(16, 64)
+scale = Vector2(2, 2)
 texture = ExtResource("7_qek5x")
-script = ExtResource("8_qek5x")
+
+[node name="reactive_bubbles" type="CPUParticles2D" parent="player"]
+z_index = -2
+amount = 24
+texture = ExtResource("9_5gtgg")
+lifetime = 2.0
+preprocess = 2.0
+lifetime_randomness = 0.5
+emission_shape = 1
+emission_sphere_radius = 64.0
+gravity = Vector2(0, 0)
+scale_amount_min = 0.1
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_h17s1")
+color_ramp = SubResource("Gradient_je7p5")
+
+[node name="bubbles" type="CPUParticles2D" parent="player"]
+z_index = -2
+amount = 64
+texture = ExtResource("9_5gtgg")
+lifetime = 8.0
+preprocess = 8.0
+emission_shape = 3
+emission_rect_extents = Vector2(960, 480)
+gravity = Vector2(0, 0)
+scale_amount_min = 0.1
+scale_amount_max = 0.5
+scale_amount_curve = SubResource("Curve_h17s1")
+color_ramp = SubResource("Gradient_je7p5")
 
 [node name="player_UI" type="CanvasLayer" parent="."]
 
@@ -138,3 +176,36 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="health_Bar" type="TextureProgressBar" parent="player_UI/ui" node_paths=PackedStringArray("player_Inst")]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0208333
+anchor_top = 0.858333
+anchor_right = 0.979167
+anchor_bottom = 0.958333
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(516, 32)
+value = 50.0
+nine_patch_stretch = true
+stretch_margin_left = 24
+stretch_margin_top = 24
+stretch_margin_right = 24
+stretch_margin_bottom = 24
+texture_under = ExtResource("10_fm80t")
+texture_progress = ExtResource("11_gx1jg")
+script = ExtResource("12_ugbui")
+player_Inst = NodePath("../../../player")
+metadata/_edit_use_anchors_ = true
+
+[node name="game_Background" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="floor" type="ColorRect" parent="game_Background"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0980392, 0.164706, 0.25098, 1)

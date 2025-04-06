@@ -1,27 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://toahgy2b06gv"]
+[gd_scene load_steps=4 format=3 uid="uid://toahgy2b06gv"]
 
 [ext_resource type="PackedScene" uid="uid://b8vaqgsfq1f0a" path="res://scenes/player/player.tscn" id="2_nd71p"]
-[ext_resource type="PackedScene" uid="uid://6qsxsfmdmrm1" path="res://scenes/enemies/flounder.tscn" id="3_7ddre"]
-[ext_resource type="Script" uid="uid://cvsm4hwdtkdux" path="res://scripts/enemies/enemy_Spawner_Script.gd" id="3_qjeyg"]
 [ext_resource type="PackedScene" uid="uid://dy2oaee5fja0s" path="res://scenes/allies/spear_fish.tscn" id="4_7ddre"]
-
-[sub_resource type="Curve2D" id="Curve2D_3qnke"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, -540, -300, 0, 0, 0, 0, 540, -300, 0, 0, 0, 0, 540, 300, 0, 0, 0, 0, -540, 300, 0, 0, 0, 0, -540, -300)
-}
-point_count = 5
+[ext_resource type="PackedScene" uid="uid://bo14rknsmwb42" path="res://scenes/allies/laser_Fish.tscn" id="4_qjeyg"]
 
 [node name="test_Scene" type="Node2D"]
 
 [node name="player" parent="." instance=ExtResource("2_nd71p")]
-
-[node name="enemy_Spawner" type="Path2D" parent="player"]
-curve = SubResource("Curve2D_3qnke")
-script = ExtResource("3_qjeyg")
-enemies = Array[PackedScene]([ExtResource("3_7ddre")])
-
-[node name="follower" type="PathFollow2D" parent="player/enemy_Spawner"]
-position = Vector2(-540, -300)
 
 [node name="game_UI" type="CanvasLayer" parent="."]
 
@@ -33,16 +18,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="game_Background" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="floor" type="ColorRect" parent="game_Background"]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.0980392, 0.164706, 0.25098, 1)
-
 [node name="spear_Fish" parent="." instance=ExtResource("4_7ddre")]
 position = Vector2(-120, -60)
+
+[node name="feeder_Fish" parent="." instance=ExtResource("4_qjeyg")]
+position = Vector2(-280, 160)
