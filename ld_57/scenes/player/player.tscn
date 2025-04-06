@@ -94,7 +94,7 @@ motion_mode = 1
 platform_on_leave = 2
 platform_floor_layers = 4294967040
 script = ExtResource("1_lvxji")
-health_Regen = 10.0
+health_Regen = 1.0
 
 [node name="camera" type="Camera2D" parent="player"]
 process_callback = 0

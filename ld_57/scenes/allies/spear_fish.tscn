@@ -36,7 +36,7 @@ collision_mask = 0
 script = ExtResource("2_i8pjn")
 move_Speed = 325.0
 rotation_Speed = 8.0
-health_Regen = 5.0
+health_Regen = 0.5
 metadata/_custom_type_script = "uid://cbqaec1du120m"
 
 [node name="collision" type="CollisionShape2D" parent="character"]

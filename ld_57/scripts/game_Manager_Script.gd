@@ -41,7 +41,7 @@ func spawn_Egg() -> void:
 	current_Egg.activated.connect(spawn_Egg)
 
 func spawn_Enemy() -> void:
-	var difficulty := time_Elapsed * 0.05
+	var difficulty := time_Elapsed * 0.1
 	
 	for i in range(1 + ceil(difficulty)):
 		if enemies.size() > max_Enemies:
@@ -55,9 +55,9 @@ func spawn_Enemy() -> void:
 		
 		new_Enemy.global_position = player_Inst.global_position + offset
 		
-		new_Enemy.get_node("enemy").activate_Health += difficulty * 0.1
-		new_Enemy.get_node("enemy").damage += difficulty * 0.1
-		new_Enemy.get_node("enemy").move_Speed += difficulty * 0.1
+		new_Enemy.get_node("enemy").activate_Health += difficulty
+		new_Enemy.get_node("enemy").damage += difficulty 
+		new_Enemy.get_node("enemy").move_Speed += difficulty 
 		
 		var root_Node := get_node("/root")
 		root_Node.call_deferred("add_child", new_Enemy)

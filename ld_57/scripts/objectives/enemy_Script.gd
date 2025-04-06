@@ -18,7 +18,7 @@ func _physics_process(delta: float) -> void:
 	var dist_To_Obj = global_position.distance_to(target.global_position)
 	target_Position = target.global_position
 	
-	if dist_To_Obj < 16:
+	if dist_To_Obj < 32:
 		target.take_Damage(damage * delta)
 	
 	var direction := (target_Position - global_position).normalized()
